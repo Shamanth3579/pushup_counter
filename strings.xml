@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pushup Counter</string>
+    <string name="pushup_count">Pushup Count: %1$d</string>
+    <string name="fetch_count">Fetch Count</string>
+    <string name="error_connection">Error connecting to ESP32</string>
+    <string name="announce_count">Pushup count is %1$d</string>
+</resources>
