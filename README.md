@@ -19,8 +19,11 @@ with the help of GitHub Copilot the coding part is done.
 **THINGS TO DO TO BUILD THIS PROJECT FOR YOURSELF:**
 
 1.install ArduinoIDE and AndroidStudio(install all the required drivers also).
+
 2.flash the Arduino code called 'esp_wifi_AP' onto the esp32cam. 
+
 3.Open androidstudio > newproject.
+
 4.find these files **1**.MainActivity.kt **2**.activity_main.xml **3**.AndroidManifest.xml **4**.network_security.xml **5**.values\themes.xml **6**.night\themes.xml **7**.colors.xml **8**.layouts.xml **9**.strings.xml. 
 Or simply download the app from the drive link https://drive.google.com/file/d/1ZIl8sAu8jKkSKMLIYjqs5ZR1KIqi4-17/view?usp=drive_link
 
