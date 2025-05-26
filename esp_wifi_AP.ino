@@ -10,12 +10,10 @@ WebServer server(80);
 
 int counter = 0;
 
-// Serve the current pushup count at "/"
 void handleRoot() {
   server.send(200, "text/plain", String(counter));
 }
 
-// Reset endpoint, sets the counter to zero
 void handleReset() {
   counter = 0;
   server.send(200, "text/plain", "OK");
@@ -27,13 +25,11 @@ void setup() {
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
 
-  // Create WiFi Access Point
   WiFi.softAP("ESP32-CAM-AP", "esp12345");
   Serial.println("📶 ESP32 running as Access Point");
   Serial.print("🔗 IP address: ");
   Serial.println(WiFi.softAPIP());
 
-  // Handle HTTP requests
   server.on("/", handleRoot);
   server.on("/reset", handleReset);
   server.begin();
@@ -42,11 +38,14 @@ void setup() {
 void loop() {
   server.handleClient();
 
-  static bool lastButtonState = HIGH;
-  bool currentButtonState = digitalRead(BUTTON_PIN);
+  static bool buttonWasPressed = false;
+  static unsigned long lastDebounceTime = 0;
+  const unsigned long debounceDelay = 50; // 50 ms debounce
 
-  // Detect button press (falling edge)
-  if (lastButtonState == HIGH && currentButtonState == LOW) {
+  bool buttonState = digitalRead(BUTTON_PIN) == LOW; // true = pressed
+
+  if (buttonState && !buttonWasPressed && (millis() - lastDebounceTime > debounceDelay)) {
+    // Button just pressed and stable
     counter++;
     Serial.print("🔘 Button pressed: ");
     Serial.println(counter);
@@ -54,7 +53,12 @@ void loop() {
     digitalWrite(LED_PIN, HIGH);
     delay(100);
     digitalWrite(LED_PIN, LOW);
-  }
 
-  lastButtonState = currentButtonState;
+    buttonWasPressed = true;
+    lastDebounceTime = millis();
+  } else if (!buttonState && buttonWasPressed) {
+    // Button released
+    buttonWasPressed = false;
+    lastDebounceTime = millis();
+  }
 }
