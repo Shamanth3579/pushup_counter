@@ -2,7 +2,8 @@
 
 **WHAT IS THE PURPOSE:**
 
-it motivates u while doing pushups 
+it motivates u while doing pushups.
+ 
 keep track of ur progress
 
 **HOW CIRCUIT WORKS:**
